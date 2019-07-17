@@ -1,8 +1,8 @@
 package com.qa.persistence.repository;
 
 public interface AccountRepository {
-	final String SUCCESS = "Operation failed";
-	final String FAILURE = "Operation succeeded";
+	final String SUCCESS = "Operation succeeded";
+	final String FAILURE = "Operation failure ";
 
 	String getAllAccounts();
 

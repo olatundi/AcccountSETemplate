@@ -2,6 +2,7 @@ package com.qa.persistence.repository;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.qa.persistence.domain.Account;
 import com.qa.util.JSONUtil;
@@ -9,6 +10,14 @@ import com.qa.util.JSONUtil;
 public class AccountMapRepository implements AccountRepository {
 
 	private Map<Integer, Account> accountMap = new HashMap<Integer, Account>();
+
+	public Map<Integer, Account> getAccountMap() {
+		return accountMap;
+	}
+
+	public void setAccountMap(Map<Integer, Account> accountMap) {
+		this.accountMap = accountMap;
+	}
 
 	private int count = 1;
 
@@ -34,13 +43,22 @@ public class AccountMapRepository implements AccountRepository {
 		if (this.accountMap.containsValue(toAdd)) {
 			return SUCCESS;
 		} else {
-			return "Failed to add account";
+			return FAILURE;
 		}
 	}
 
 	public String deleteAccount(int accountNumber) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	public void getAccountFirstNameCount(String fName) {
+		int count = 0;
+		for(Entry<Integer, Account> entry: this.getAccountMap().entrySet()) {
+	      if (fName.equals(entry.getValue().getFirstName())){
+	    	   count++;
+	       }
+		}
+		System.out.println(count);
 	}
 
 	public String updateAccount(int accountNumber, String account) {

@@ -68,5 +68,23 @@ public class AccountServiceTest {
 		// For a later piece of functionality
 		fail("TODO");
 	}
+	
+	@Test
+	public void testRetreiveAccountMap() {
+		this.amr.createAccount(this.ACCOUNT_JSON_1);
+		String fName = "Scoot";
+		this.amr.getAccountFirstName(fName);
+		assertEquals(new Account(), this.amr.getAccountMap().values().getClass() );
+	}
+
+
+
+	
+//	@Test
+//	public void testRetreiveAccountName() {
+//		this.amr.createAccount(this.ACCOUNT_JSON_1);
+//		assertEquals(this.amr.getAccountFirstName(), getClass());
+//	}
+
 
 }
