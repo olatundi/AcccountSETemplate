@@ -13,7 +13,7 @@ import com.qa.persistence.repository.AccountRepository;
 public class AccountServiceTest {
 
 	private AccountMapRepository amr;
-	private final String ACCOUNT_JSON_1 = "{'ID':1,'ACCOUNTNUMBER':'ADC123','FIRSTNAME':'SCOOT','LASTNAME':'PACINO'}";
+	private final String ACCOUNT_JSON_1 = "{'id':1,'accountNumber':'ADC123','firstName':'SCOOT','lastName':'PACINO'}";
 	private final String ACCOUNT_JSON_2 = "{'ID':1,'ACCOUNTNUMBER':'ADC123','FIRSTNAME':'CHAD','LASTNAME':'THUNDER'}";
 
 	private final Account ACCOUNT_1 = new Account(1, "ADC123", "SCOOT", "PACINO");
@@ -72,19 +72,19 @@ public class AccountServiceTest {
 	@Test
 	public void testRetreiveAccountMap() {
 		this.amr.createAccount(this.ACCOUNT_JSON_1);
-		String fName = "Scoot";
-		this.amr.getAccountFirstName(fName);
-		assertEquals(new Account(), this.amr.getAccountMap().values().getClass() );
+//		String fName = "Scoot";
+		assertEquals(new Account().getClass() , this.amr.getAccountMap().get(1).getClass() );
 	}
 
 
 
 	
-//	@Test
-//	public void testRetreiveAccountName() {
-//		this.amr.createAccount(this.ACCOUNT_JSON_1);
-//		assertEquals(this.amr.getAccountFirstName(), getClass());
-//	}
+	@Test
+	public void testRetreiveAccountName() {
+		this.amr.createAccount(this.ACCOUNT_JSON_1);
+		String fName = "SCOOT";
+		assertEquals(1,this.amr.getAccountFirstNameCount(fName) );
+	}
 
 
 }

@@ -51,23 +51,27 @@ public class AccountMapRepository implements AccountRepository {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public void getAccountFirstNameCount(String fName) {
+	public int getAccountFirstNameCount(String fName) {
 		int count = 0;
 		for(Entry<Integer, Account> entry: this.getAccountMap().entrySet()) {
 	      if (fName.equals(entry.getValue().getFirstName())){
 	    	   count++;
+	    	   System.out.println(entry.getValue().getFirstName());
 	       }
 		}
 		System.out.println(count);
+		
+
+		return count;
 	}
 
 	public String updateAccount(int accountNumber, String account) {
 		Account toUpdate = this.json.getObjectForJSON(account, Account.class);
 		this.accountMap.replace(accountNumber, toUpdate);
 		if (this.accountMap.containsValue(toUpdate)) {
-			return FAILURE;
+			return SUCCESS;
 		} else {
-			return "Failed to add account";
+			return FAILURE;
 		}
 	}
 
