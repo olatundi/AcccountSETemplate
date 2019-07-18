@@ -24,7 +24,7 @@ public class AccountMapRepository implements AccountRepository {
 
 	private int count = 1;
 
-	private JSONUtil json = new JSONUtil();
+	private JSONUtil json;
 
 	// You must provide concrete implementation for each of these methods
 	// do not change the method signature
