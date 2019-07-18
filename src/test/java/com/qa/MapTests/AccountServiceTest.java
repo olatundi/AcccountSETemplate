@@ -13,7 +13,7 @@ import com.qa.persistence.repository.AccountRepository;
 public class AccountServiceTest {
 
 	private AccountMapRepository amr;
-	private final String ACCOUNT_JSON_1 = "{'ID':1,'ACCOUNTNUMBER':'ADC123','FIRSTNAME':'SCOOT','LASTNAME':'PACINO'}";
+	private final String ACCOUNT_JSON_1 = "{'id':1,'accountNumber':'ADC123','firstName':'SCOOT','lastName':'PACINO'}";
 	private final String ACCOUNT_JSON_2 = "{'ID':1,'ACCOUNTNUMBER':'ADC123','FIRSTNAME':'CHAD','LASTNAME':'THUNDER'}";
 
 	private final Account ACCOUNT_1 = new Account(1, "ADC123", "SCOOT", "PACINO");
@@ -31,42 +31,60 @@ public class AccountServiceTest {
 	@Test
 	public void updateAccountTest() {
 		this.amr.createAccount(this.ACCOUNT_JSON_1);
-		assertEquals("Failed to update account", AccountRepository.FAILURE,
+		assertEquals("Failed to update account", AccountRepository.SUCCESS,
 				this.amr.updateAccount(1, this.ACCOUNT_JSON_2));
 	}
 
+//	@Test
+//	public void remove2AccountTestAnd1ThatDoesntExist() {
+//		fail("TODO");
+//	}
+//
+//	@Test
+//	public void jsonStringToAccountConversionTest() {
+////		assertEquals("Failed to convert JSON to Account", )
+//	}
+//
+//	@Test
+//	public void accountConversionToJSONTest() {
+//		// testing JSONUtil
+//		fail("TODO");
+//	}
+//
+//	@Test
+//	public void getCountForFirstNamesInAccountWhenZeroOccurances() {
+//		// For a later piece of functionality
+//		fail("TODO");
+//	}
+//
+//	@Test
+//	public void getCountForFirstNamesInAccountWhenOne() {
+//		// For a later piece of functionality
+//		fail("TODO");
+//	}
+//
+//	@Test
+//	public void getCountForFirstNamesInAccountWhenTwo() {
+//		// For a later piece of functionality
+//		fail("TODO");
+//	}
+	
 	@Test
-	public void remove2AccountTestAnd1ThatDoesntExist() {
-		fail("TODO");
+	public void testRetreiveAccountMap() {
+		this.amr.createAccount(this.ACCOUNT_JSON_1);
+//		String fName = "Scoot";
+		assertEquals(new Account().getClass() , this.amr.getAccountMap().get(1).getClass() );
 	}
 
+
+
+	
 	@Test
-	public void jsonStringToAccountConversionTest() {
-//		assertEquals("Failed to convert JSON to Account", )
+	public void testRetreiveAccountName() {
+		this.amr.createAccount(this.ACCOUNT_JSON_1);
+		String fName = "SCOOT";
+		assertEquals(1,this.amr.getAccountFirstNameCount(fName) );
 	}
 
-	@Test
-	public void accountConversionToJSONTest() {
-		// testing JSONUtil
-		fail("TODO");
-	}
-
-	@Test
-	public void getCountForFirstNamesInAccountWhenZeroOccurances() {
-		// For a later piece of functionality
-		fail("TODO");
-	}
-
-	@Test
-	public void getCountForFirstNamesInAccountWhenOne() {
-		// For a later piece of functionality
-		fail("TODO");
-	}
-
-	@Test
-	public void getCountForFirstNamesInAccountWhenTwo() {
-		// For a later piece of functionality
-		fail("TODO");
-	}
 
 }
