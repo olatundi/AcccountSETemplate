@@ -13,10 +13,10 @@ import com.qa.persistence.repository.AccountRepository;
 public class AccountServiceTest {
 
 	private AccountMapRepository amr;
-	private final String ACCOUNT_JSON_1 = "{'id':1,'accountNumber':'ADC123','firstName':'SCOOT','lastName':'PACINO'}";
-	private final String ACCOUNT_JSON_2 = "{'ID':1,'ACCOUNTNUMBER':'ADC123','FIRSTNAME':'CHAD','LASTNAME':'THUNDER'}";
+	private final String ACCOUNT_JSON_1 = "{'id':1,'accountNumber':3,'firstName':'SCOOT','lastName':'PACINO'}";
+	private final String ACCOUNT_JSON_2 = "{'ID':1,'ACCOUNTNUMBER':'123','FIRSTNAME':'CHAD','LASTNAME':'THUNDER'}";
 
-	private final Account ACCOUNT_1 = new Account(1, "ADC123", "SCOOT", "PACINO");
+	private final Account ACCOUNT_1 = new Account(1, 23, "SCOOT", "PACINO");
 
 	@Before
 	public void setup() {

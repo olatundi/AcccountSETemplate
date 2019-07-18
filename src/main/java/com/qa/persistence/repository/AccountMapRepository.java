@@ -48,9 +48,14 @@ public class AccountMapRepository implements AccountRepository {
 	}
 
 	public String deleteAccount(int accountNumber) {
-		// TODO Auto-generated method stub
+		for(Entry<Integer, Account> entry: this.getAccountMap().entrySet()) {
+		    if (accountNumber==(entry.getValue().getAccountNumber())){
+		    	  this.accountMap.remove(entry.getKey());
+		    }
+		}
 		return null;
 	}
+	
 	public int getAccountFirstNameCount(String fName) {
 		int count = 0;
 		for(Entry<Integer, Account> entry: this.getAccountMap().entrySet()) {
@@ -60,9 +65,7 @@ public class AccountMapRepository implements AccountRepository {
 	       }
 		}
 		System.out.println(count);
-		
-
-		return count;
+		 		return count;
 	}
 
 	public String updateAccount(int accountNumber, String account) {
