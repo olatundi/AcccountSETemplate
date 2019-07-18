@@ -1,5 +1,10 @@
 package com.qa.persistence.repository;
 
+import java.util.List;
+
+import com.qa.exceptions.AccountNotFoundException;
+import com.qa.persistence.domain.Account;
+
 public interface AccountRepository {
 	final String SUCCESS = "Operation succeeded";
 	final String FAILURE = "Operation failure ";
@@ -8,8 +13,10 @@ public interface AccountRepository {
 
 	String createAccount(String account);
 
-	String deleteAccount(int accountNumber);
+	String deleteAccount(int accountId) throws AccountNotFoundException;
 
-	String updateAccount(int accountNumber, String account);
+	String updateAccount(int accountId, String account) throws AccountNotFoundException;
+
+	List<Account> findAccountsByFirstName(String firstName);
 
 }

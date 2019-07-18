@@ -1,11 +1,14 @@
 package com.qa.persistence.repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import javax.enterprise.inject.Alternative;
 
+import com.qa.exceptions.AccountNotFoundException;
 import com.qa.persistence.domain.Account;
 import com.qa.util.JSONUtil;
 
@@ -13,19 +16,25 @@ import com.qa.util.JSONUtil;
 public class AccountMapRepository implements AccountRepository {
 
 	private Map<Integer, Account> accountMap = new HashMap<Integer, Account>();
-
-	public Map<Integer, Account> getAccountMap() {
-		return accountMap;
-	}
-
-	public void setAccountMap(Map<Integer, Account> accountMap) {
-		this.accountMap = accountMap;
-	}
+	
+	
 
 	private int count = 1;
 
 	private JSONUtil json;
 
+	public AccountMapRepository() {
+		super();
+		this.accountMap = new HashMap<Integer, Account>();
+		this.json = new JSONUtil();
+	}
+	public Map<Integer, Account> getAccountMap() {
+		return accountMap;
+	}
+	
+	public void setAccountMap(Map<Integer, Account> accountMap) {
+		this.accountMap = accountMap;
+	}
 	// You must provide concrete implementation for each of these methods
 	// do not change the method signature
 	// THINK - if the parameter is a String, or the return type is a String
@@ -37,7 +46,7 @@ public class AccountMapRepository implements AccountRepository {
 
 	public String getAllAccounts() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.json.getJSONForObject(this.accountMap.values());
 	}
 
 	public String createAccount(String account) {
@@ -50,13 +59,13 @@ public class AccountMapRepository implements AccountRepository {
 		}
 	}
 
-	public String deleteAccount(int accountNumber) {
-		for(Entry<Integer, Account> entry: this.getAccountMap().entrySet()) {
-		    if (accountNumber==(entry.getValue().getAccountNumber())){
-		    	  this.accountMap.remove(entry.getKey());
-		    }
+	public String deleteAccount(int accountNumber) throws AccountNotFoundException {
+		if (!this.accountMap.containsKey(accountNumber)) {
+			throw new AccountNotFoundException();
+		} else {
+			this.accountMap.remove(accountNumber);
+			return SUCCESS;
 		}
-		return null;
 	}
 	
 	public int getAccountFirstNameCount(String fName) {
@@ -79,6 +88,11 @@ public class AccountMapRepository implements AccountRepository {
 		} else {
 			return FAILURE;
 		}
+	}
+
+	public List<Account> findAccountsByFirstName(String firstName) {
+		return this.accountMap.values().stream().filter(a -> a.getFirstName().equals(firstName))
+				.collect(Collectors.toList());
 	}
 
 }

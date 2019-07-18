@@ -1,5 +1,7 @@
 package com.qa.persistence.repository;
 
+import java.util.List;
+
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -8,6 +10,7 @@ import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import javax.transaction.Transactional.TxType;
 
+import com.qa.exceptions.AccountNotFoundException;
 import com.qa.persistence.domain.Account;
 import com.qa.util.JSONUtil;
 
@@ -22,26 +25,25 @@ public class AccountDBRepository implements AccountRepository {
 	
 	public String getAllAccounts() {
 		TypedQuery<Account> query = em.createQuery("SELECT A FROM Account A", Account.class);
-		System.out.println(query.getResultList());
-		return SUCCESS;
+		return this.util.getJSONForObject(query.getResultList());
 	}
 
 	
 	@Transactional(value = TxType.REQUIRED)
 	public String createAccount(String account) {
 		Account aAccount = util.getObjectForJSON(account, Account.class);
-		em.persist(aAccount);
-		return "{\"message\": \"movie sucessfully added\"}";
+		this.em.persist(aAccount);
+		return SUCCESS;
 	}
 
 	public Account findAccount(Long id) {
-        return em.find(Account.class, id);
+        return this.em.find(Account.class, id);
     }
 
 	@Transactional(value = TxType.REQUIRED)
-	public String deleteAccount(int accountNumber) {
-		Account toRem = em.find(Account.class, accountNumber);
-		em.remove(toRem);
+	public String deleteAccount(int accountID) {
+		Account toRem = em.find(Account.class, accountID);
+		this.em.remove(toRem);
 		return SUCCESS;
 	}
 	
@@ -49,11 +51,22 @@ public class AccountDBRepository implements AccountRepository {
 	public String updateAccount(int accountNumber, String account) {
 		Account aAccount = util.getObjectForJSON(account, Account.class);
 		Account existing = em.find(Account.class, accountNumber);
+		if (existing == null) {
+			throw new AccountNotFoundException();
+		}
 		existing.setId(aAccount.getId());
 		existing.setAccountNumber(aAccount.getAccountNumber());
 		existing.setFirstName(aAccount.getFirstName());
 		existing.setLastName(aAccount.getLastName());
-		em.persist(existing);	
+		this.em.persist(existing);	
 		return SUCCESS;
+	}
+
+
+	public List<Account> findAccountsByFirstName(String firstName) {
+		TypedQuery<Account> query = this.em.createQuery("SELECT a FROM Account a WHERE a.firstName = :firstName",
+				Account.class);
+		query.setParameter("firstName", firstName);
+		return query.getResultList();
 	}
 }
