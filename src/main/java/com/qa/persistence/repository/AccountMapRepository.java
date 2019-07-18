@@ -91,8 +91,7 @@ public class AccountMapRepository implements AccountRepository {
 	}
 
 	public List<Account> findAccountsByFirstName(String firstName) {
-		return this.accountMap.values().stream().filter(a -> a.getFirstName().equals(firstName))
-				.collect(Collectors.toList());
+		return this.accountMap.values().stream().filter(a -> a.getFirstName().equals(firstName)).collect(Collectors.toList());
 	}
 
 }

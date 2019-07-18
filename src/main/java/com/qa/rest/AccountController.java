@@ -4,6 +4,7 @@ package com.qa.rest;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.websocket.server.PathParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -31,8 +32,8 @@ public class AccountController {
 	};
 	
 	@POST
-	@Path("/delAcc") 
-	public String deleteAccount(int accountId) throws AccountNotFoundException {
+	@Path("/delete/{id}") 
+	public String deleteAccount(@PathParam ("id") int accountId) throws AccountNotFoundException {
 		return this.deleteAccount(accountId);
 	};
 
