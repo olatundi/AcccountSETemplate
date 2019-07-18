@@ -9,12 +9,12 @@ import javax.persistence.Id;
 @Entity
 public class Account {
 	@Id @GeneratedValue(strategy= GenerationType.AUTO)
-	private Integer id;
-	private String accountNumber;
+	private int id;
+	private int accountNumber;
 	private String firstName;
 	private String lastName;
 
-	public Account(Integer id, String accountNumber, String firstName, String lastName) {
+	public Account(Integer id, int accountNumber, String firstName, String lastName) {
 		super();
 		this.id = id;
 		this.accountNumber = accountNumber;
@@ -34,11 +34,11 @@ public class Account {
 		this.id = id;
 	}
 
-	public String getAccountNumber() {
+	public int getAccountNumber() {
 		return accountNumber;
 	}
 
-	public void setAccountNumber(String accountNumber) {
+	public void setAccountNumber(int accountNumber) {
 		this.accountNumber = accountNumber;
 	}
 
