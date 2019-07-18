@@ -1,11 +1,15 @@
 package com.qa.util;
 
+import javax.enterprise.inject.Default;
+
 import com.google.gson.Gson;
 
+@Default
 public class JSONUtil {
 
 	private Gson gson;
 
+	
 	public JSONUtil() {
 		this.gson = new Gson();
 	}
